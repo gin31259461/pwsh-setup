@@ -2,6 +2,11 @@ New-Alias k kubectl
 Remove-Item Alias:h
 New-Alias h helm
 New-Alias g goto
+New-Alias dot git-dot
+
+function git-dot {
+    git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME @Args
+}
 
 function goto {
     param (
