@@ -17,9 +17,9 @@ Write-Output "Installing Fonts"
 $fontsPathObjects = powershell -Command "[System.Environment]::GetFolderPath('Fonts')"
 
 $fontsPath = ($fontsPathObjects[0] -as [string]) 
-if (-not $fontsPath) { $fontsPath = "C:\WINDOWS\Fonts" }
+if (-not $fontsPath) { $fontsPath = "C:\Windows\Fonts" }
 
-Copy-Item -Path ./fonts/* -Destination $fontsPath[0] -Recurse -Force
+Copy-Item -Path ./fonts/* -Destination $fontsPath -Recurse -Force
 
 # Packages
 Write-Output "Installing Packages"
