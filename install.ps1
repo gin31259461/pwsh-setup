@@ -18,7 +18,7 @@ $fontsPath = "$env:windir\Fonts"
 $fontFiles = Get-ChildItem -Path ./fonts -Include *.ttf, *.otf -Recurse
 
 foreach ($file in $fontFiles) {
-  Copy-Item -Path $file -Destination $fontsPath -Force
+  Copy-Item -Path "./fonts/$file" -Destination $fontsPath -Force
 }
 
 
