@@ -5,7 +5,7 @@ if (-not (winget list | Select-String -Pattern "Starship")) {
 }
 
 if (-not (Get-Module -ListAvailable -Name PSReadLine)) {
-  Install-Module PSReadLine
+  Install-Module PSReadLine -Force
 }
 
 Write-Output "Copying PreConfig Files"
@@ -17,7 +17,7 @@ Copy-Item -Path ./windows-terminal-settings.json -Destination $HOME/ -Recurse -F
 
 Write-Output "Installing Fonts"
 
-$fontsPath = [System.Environment]::GetFolderPath("Fonts")
+$fontsPath = powershell -Command "[System.Environment]::GetFolderPath("Fonts")"
 Copy-Item -Path ./fonts/* -Destination $fontsPath -Recurse -Force
 
 Write-Output "Copying PowerShell Profile"
