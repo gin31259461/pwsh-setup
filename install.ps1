@@ -14,11 +14,10 @@ New-Item -Path $profile -Value $HOME/.pwsh/Microsoft.PowerShell_profile.ps1 -Ite
 # Fonts
 Write-Output "Installing Fonts"
 
-$fontsPath = Join-Path $env:WINDIR "Fonts" 
 $fontFiles = Get-ChildItem -Path ./fonts -Include *.ttf, *.otf -Recurse
 
 foreach ($file in $fontFiles) {
-  Copy-Item -Path $file -Destination $fontsPath -Force
+  Register-Font -Path $file
 }
 
 # Packages
