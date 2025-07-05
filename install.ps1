@@ -14,10 +14,9 @@ New-Item -Path $profile -Value $HOME/.pwsh/Microsoft.PowerShell_profile.ps1 -Ite
 # Fonts
 Write-Output "Installing Fonts"
 
-$fontsPathObjects = powershell -Command "[System.Environment]::GetFolderPath('Fonts')"
+$fontsPath = powershell -Command "[System.Environment]::GetFolderPath('Fonts')"
 
-$fontsPath = ($fontsPathObjects[0] -as [string]) 
-if (-not $fontsPath) { $fontsPath = "C:\Windows\Fonts" }
+$fontsPath = ($fontsPath -as [string]) 
 
 Copy-Item -Path ./fonts/* -Destination $fontsPath -Recurse -Force
 
