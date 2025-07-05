@@ -17,7 +17,7 @@ Copy-Item -Path ./windows-terminal-settings.json -Destination $HOME/ -Recurse -F
 
 Write-Output "Installing Fonts"
 
-$fontsPath = powershell -Command "[System.Environment]::GetFolderPath("Fonts")"
+$fontsPath = powershell -Command "[System.Environment]::GetFolderPath('Fonts')"
 Copy-Item -Path ./fonts/* -Destination $fontsPath -Recurse -Force
 
 Write-Output "Copying PowerShell Profile"
