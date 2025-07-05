@@ -1,4 +1,4 @@
-Set-ExecutionPolicy Remotesigned
+Set-ExecutionPolicy Remotesigned -Scope CurrentUser -Force | Out-Null
 
 if (-not (winget list | Select-String -Pattern "Starship")) {
   winget install --id Starship.Starship
@@ -15,7 +15,7 @@ Copy-Item -Path ./.pwsh -Destination $HOME/ -Recurse -Force
 Copy-Item -Path ./files-theme-xcad.xaml -Destination $HOME/ -Recurse -Force
 Copy-Item -Path ./windows-terminal-settings.json -Destination $HOME/ -Recurse -Force
 
-Write-Output "Installing Fonts"
+Write-Output "Installing Fonts" -ForegroundColor Green
 
 $fontsPath = [System.Environment]::GetFolderPath("Fonts")
 Copy-Item -Path ./fonts/* -Destination $fontsPath -Recurse -Force
@@ -45,6 +45,9 @@ if (-not (winget list | Select-String -Pattern "NodeJS")) {
 }
 
 
-Write-Output "All Done!"
+Write-Output "Changing Right-Click Menu to Win10 Style"
 
-Pause
+reg add "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32" /f /ve
+taskkill /f /im explorer.exe; start explorer.exe
+
+Write-Output "All Done!"

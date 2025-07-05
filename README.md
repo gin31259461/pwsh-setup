@@ -2,8 +2,4 @@
 
 ## Installation
 
-Run following command with administrator
-
-```pwsh
-.\install.ps1
-```
+Run `install.bat` with Administrator
