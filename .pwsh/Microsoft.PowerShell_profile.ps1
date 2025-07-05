@@ -288,4 +288,4 @@ Set-PSReadLineOption -Colors @{ InlinePrediction = '#875f5f'}
 
 Set-PSReadLineKeyHandler -Chord "Ctrl+RightArrow" -Function ForwardWord
 
-Invoke-Expression (&starship init powershell)
+Invoke-Expression (&starship init powershell --NoLogo)
