@@ -15,8 +15,12 @@ New-Item -Path $profile -Value $HOME/.pwsh/Microsoft.PowerShell_profile.ps1 -Ite
 Write-Output "Installing Fonts"
 
 $fontsPath = "$env:windir\Fonts"
+$fontFiles = Get-ChildItem -Path ./fonts -Include *.ttf, *.otf -Recurse
 
-Copy-Item -Path ./fonts/* -Destination $fontsPath -Recurse -Force
+foreach ($file in $fontFiles) {
+  Copy-Item -Path $file -Destination $fontsPath -Force
+}
+
 
 # Packages
 Write-Output "Installing Packages"
