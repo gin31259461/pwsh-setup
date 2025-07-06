@@ -1,12 +1,13 @@
 # ~/.config/starship.toml
+"$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = false
 command_timeout = 1000
 format = """$os$username$hostname$kubernetes$directory$git_branch$git_status"""
 
 [character]
-success_symbol = ' '
-error_symbol = ''
+success_symbol = '[ ](bold green)'
+error_symbol = '[](bold red)'
 
 # ╭───────────────────────────────╮
 # │ 🚀 Main Format Config         │
@@ -68,6 +69,11 @@ modified = ' '
 staged = '[++\($count\)](green)'
 renamed = ' '
 deleted = ' '
+
+[cmd_duration]
+min_time = 0
+show_milliseconds = true
+format = '[$duration]($style) '
 
 # ╭───────────────────────────────╮
 # │ 🚀 Specific Context Format    │
