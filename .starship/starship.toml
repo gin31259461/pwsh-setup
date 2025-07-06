@@ -8,19 +8,19 @@ format = """$os$username$hostname$kubernetes$directory$git_branch$git_status"""
 success_symbol = ' '
 error_symbol = ''
 
-# ---
+# ╭───────────────────────────────╮
+# │ 🚀 Main Format Config         │
+# ╰───────────────────────────────╯
 
 [os]
 format = '[$symbol](bold white) '
 disabled = false
 
 [os.symbols]
-Windows = ''
-Arch = '󰣇'
-Ubuntu = ''
-Macos = '󰀵'
-
-# ---
+Windows = ' '
+Arch = '󰣇 '
+Ubuntu = ' '
+Macos = '󰀵 '
 
 # Shows the username
 [username]
@@ -48,7 +48,7 @@ format = 'at [$path]($style)[$read_only]($read_only_style) '
 # Shows current git branch
 [git_branch]
 symbol = ' '
-format = 'via [$symbol$branch]($style)'
+format = '➜ [$symbol$branch]($style)'
 # truncation_length = 4
 truncation_symbol = '…/'
 style = 'bold green'
@@ -69,12 +69,18 @@ staged = '[++\($count\)](green)'
 renamed = ' '
 deleted = ' '
 
+# ╭───────────────────────────────╮
+# │ 🚀 Specific Context Format    │
+# ╰───────────────────────────────╯
+
 # Shows kubernetes context and namespace
 [kubernetes]
-format = 'via [󱃾 $context\($namespace\)](bold purple) '
+format = '➜ [󱃾 $context\($namespace\)](bold purple) '
 disabled = false
 
-# ---
+# ╭───────────────────────────────╮
+# │ 🚀 Disabled                   │
+# ╰───────────────────────────────╯
 
 [vagrant]
 disabled = true
@@ -96,3 +102,4 @@ disabled = true
 
 [terraform]
 disabled = true
+
