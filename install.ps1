@@ -51,4 +51,11 @@ if (-not (winget list | Select-String -Pattern "NodeJS")) {
 }
 Write-Output "Done"
 
+Write-Output "Check for ripgrep"
+if (-not (winget list | Select-String -Pattern "ripgrep")) {
+  winget install BurntSushi.ripgrep.MSVC
+}
+Write-Output "Done"
+
+
 Write-Output "All Done!"
