@@ -2,6 +2,7 @@ New-Alias k kubectl
 Remove-Item Alias:h
 New-Alias h helm
 New-Alias g goto
+New-Alias v nvim
 New-Alias dot git-dot
 
 function git-dot {
