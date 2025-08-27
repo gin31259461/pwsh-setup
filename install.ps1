@@ -1,28 +1,26 @@
 Set-ExecutionPolicy Remotesigned -Scope CurrentUser -Force | Out-Null
 
-Write-Output "Copying PreConfig Files"
 
-Copy-Item -Path ./.starship -Destination $HOME/ -Recurse -Force
-
-# PowerShell
-Write-Output "Copying PowerShell Profile"
-
-Copy-Item -Path ./.pwsh -Destination $HOME/ -Recurse -Force
-
-New-Item -Path $profile -Value $HOME/.pwsh/Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink -Force
-
-# Packages
-Write-Output "Installing Packages"
-
-Write-Output "Check for Scoop"
-if (-not (Test-Path "$env:USERPROFILE\scoop"))
+# setup starship
+if (-not (Test-Path $HOME/.starship))
 {
-  Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+  Write-Output "Copying PreConfig Files"
+  Copy-Item -Path ./.starship -Destination $HOME/ -Recurse -Force
 }
 
-scoop bucket add extras
-scoop bucket add versions 
-Write-Output "Done"
+
+# setup powershell
+if (-not (Test-Path $HOME/.pwsh))
+{
+  Write-Output "Copying PowerShell Profile"
+  Copy-Item -Path ./.pwsh -Destination $HOME/ -Recurse -Force
+  New-Item -Path $profile -Value $HOME/.pwsh/Microsoft.PowerShell_profile.ps1 -ItemType SymbolicLink -Force
+}
+
+# -------------------- install packages --------------------
+# scoop
+# PSReadLine
+Write-Output "Installing Packages"
 
 Write-Output "Check for PSReadLine"
 if (-not (Get-Module -ListAvailable -Name PSReadLine))
@@ -31,17 +29,12 @@ if (-not (Get-Module -ListAvailable -Name PSReadLine))
 }
 Write-Output "Done"
 
-Write-Output "Check for Starship"
-if (-not (winget list | Select-String -Pattern "Starship"))
+Write-Output "Check for Scoop"
+if (-not (Test-Path "$env:USERPROFILE\scoop"))
 {
-  winget install --id Starship.Starship
-}
-Write-Output "Done"
-
-Write-Output "Check for Neovim"
-if (-not (winget list | Select-String -Pattern "Neovim"))
-{
-  winget install --id Neovim.Neovim
+  Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+  scoop bucket add extras
+  scoop bucket add versions 
 }
 Write-Output "Done"
 
@@ -52,27 +45,29 @@ if (-not (scoop list wezterm-nightly))
 }
 Write-Output "Done"
 
-Write-Output "Check for Alacritty"
-if (-not (winget list | Select-String -Pattern "Alacritty"))
-{
-  winget install --id Alacritty.Alacritty 
-}
-Write-Output "Done"
+# -------------------- install packages via winget --------------------
+winget list > winget_list.txt
 
 Write-Output "Check for NodeJS"
-if (-not (winget list | Select-String -Pattern "NodeJS"))
+if (-not (Get-Content winget_list.txt | Select-String -Pattern "NodeJS"))
 {
   winget install --id OpenJS.NodeJS 
   npm install -g pnpm
 }
 Write-Output "Done"
 
-Write-Output "Check for ripgrep"
-if (-not (winget list | Select-String -Pattern "ripgrep"))
+foreach($line in Get-Content packages.txt )
 {
-  winget install BurntSushi.ripgrep.MSVC
+  $tokens = $line -split "."
+  $name = $tokens[-1]
+
+  Write-Output "Check for $line"
+  if (
+    (-not (Get-Content winget_list.txt | Select-String -Pattern $line)) -and 
+    (-not (Get-Content winget_list.txt | Select-String -Pattern $name))
+  )
+  {
+    winget install --id $line
+  }
+  Write-Output "Done"
 }
-Write-Output "Done"
-
-
-Write-Output "All Done!"

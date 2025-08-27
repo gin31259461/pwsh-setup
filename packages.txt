@@ -1,0 +1,4 @@
+Starship.Starship
+Neovim.Neovim
+Alacritty.Alacritty
+BurntSushi.ripgrep.MSVC
